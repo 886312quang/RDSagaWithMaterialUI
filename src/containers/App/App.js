@@ -1,11 +1,15 @@
-import React from 'react';
-import Taskboar from './../Taskboard/index';
+import React from "react";
+import { Provider } from "react-redux";
+import Taskboard from "./../Taskboard/index";
+import configStore from "../../redux/configStore";
+
+const store = configStore();
 
 function App() {
   return (
-    <div className="App">
-       <Taskboar/>
-    </div>
+    <Provider store={store}>
+      <Taskboard />
+    </Provider>
   );
 }
 
