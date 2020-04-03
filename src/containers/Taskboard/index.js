@@ -10,8 +10,6 @@ import * as taskActions from "./../../actions/task";
 import TaskForm from "./../../components/taskForm/index";
 import TaskList from "./../../components/taskList/index";
 import styles from "./styles";
-
-const ListTask = [];
 class TaskBoard extends Component {
   state = {
     open: false,
@@ -22,6 +20,7 @@ class TaskBoard extends Component {
     fetchListTaskRequest();
   }
   renderBoard() {
+    const {ListTask} = this.props;
     let xhtml = null;
     xhtml = (
       <Grid container spacing={2}>
@@ -72,7 +71,11 @@ class TaskBoard extends Component {
     );
   }
 }
-const mapStateToProps = null;
+const mapStateToProps = state => {
+    return {
+        ListTask: state.task.listTask,
+    }
+};
 const mapDispatchToProps = (dispatch) => {
   return {
     taskActionCreator: bindActionCreators(taskActions, dispatch),

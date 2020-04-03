@@ -1,4 +1,3 @@
-
 export const API_ENDPOINT ='http://localhost:9999/api';
 
 export const STATUSES = [

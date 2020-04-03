@@ -16,7 +16,7 @@ class TaskList extends Component {
                     {
                         task.map((task) => {
                             return (
-                                <TaskItem task={task} status={status} key={task.id}/>    
+                                <TaskItem task={task} status={status} key={task._id}/>    
                             )
                         })
                     }

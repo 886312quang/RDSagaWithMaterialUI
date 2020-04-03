@@ -13,10 +13,10 @@ import Icon from '@material-ui/core/Icon';
 class TaskItem extends Component {
     render() {
         const { classes, task, status } = this.props;
-        const { id, title, description } = task;
+        const { _id, title, description } = task;
         return (
             <Box m={2}>
-                <Card key={id} className={classes.card}>
+                <Card key={_id} className={classes.card}>
                     <CardContent>
                         <Grid container justify="space-between">
                             <Grid item md={8}>
