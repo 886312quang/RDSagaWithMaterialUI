@@ -5,6 +5,7 @@ import { withStyles } from "@material-ui/styles";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import SearchBox from "../../components/SearchBox";
 import { STATUSES } from "../../constants/index";
 import * as taskActions from "./../../actions/task";
 import TaskForm from "./../../components/taskForm/index";
@@ -41,6 +42,12 @@ class TaskBoard extends Component {
       open: false,
     });
   };
+  handleFilter = (e) => {
+    const { value } = e.target;
+    const { taskActionCreator } = this.props;
+    const { filterTask } = taskActionCreator;
+    filterTask(value);
+  };
   openForm = () => {
     this.setState({
       open: true,
@@ -52,10 +59,16 @@ class TaskBoard extends Component {
     xhtml = <TaskForm open={open} onClose={this.handleClose} />;
     return xhtml;
   }
+  renderSearchBox() {
+    let xhtml = null;
+    xhtml = <SearchBox handleChange={this.handleFilter} />;
+    return xhtml;
+  }
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.taskBoard}>
+        {this.renderSearchBox()}
         <Button
           variant="contained"
           color="secondary"
