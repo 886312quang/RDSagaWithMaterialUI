@@ -4,7 +4,6 @@ import Add from "@material-ui/icons/LibraryAdd";
 import { withStyles } from "@material-ui/styles";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { toast } from "react-toastify";
 import { bindActionCreators } from "redux";
 import { STATUSES } from "../../constants/index";
 import * as taskActions from "./../../actions/task";
@@ -17,8 +16,8 @@ class TaskBoard extends Component {
   };
   componentDidMount() {
     const { taskActionCreator } = this.props;
-    const { fetchListTaskRequest } = taskActionCreator;
-    fetchListTaskRequest();
+    const { fetchListTask } = taskActionCreator;
+    fetchListTask();
   }
   renderBoard() {
     const { ListTask } = this.props;
