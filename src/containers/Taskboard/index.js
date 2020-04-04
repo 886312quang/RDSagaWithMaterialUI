@@ -4,6 +4,7 @@ import Add from "@material-ui/icons/LibraryAdd";
 import { withStyles } from "@material-ui/styles";
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { toast } from "react-toastify";
 import { bindActionCreators } from "redux";
 import { STATUSES } from "../../constants/index";
 import * as taskActions from "./../../actions/task";
@@ -20,7 +21,7 @@ class TaskBoard extends Component {
     fetchListTaskRequest();
   }
   renderBoard() {
-    const {ListTask} = this.props;
+    const { ListTask } = this.props;
     let xhtml = null;
     xhtml = (
       <Grid container spacing={2}>
@@ -71,10 +72,10 @@ class TaskBoard extends Component {
     );
   }
 }
-const mapStateToProps = state => {
-    return {
-        ListTask: state.task.listTask,
-    }
+const mapStateToProps = (state) => {
+  return {
+    ListTask: state.task.listTask,
+  };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
