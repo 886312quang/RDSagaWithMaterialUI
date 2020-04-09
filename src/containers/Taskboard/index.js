@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import SearchBox from "../../components/SearchBox";
 import { STATUSES } from "../../constants/index";
+import * as modalActions from "./../../actions/modal";
 import * as taskActions from "./../../actions/task";
 import TaskForm from "./../../components/taskForm/index";
 import TaskList from "./../../components/taskList/index";
@@ -49,9 +50,10 @@ class TaskBoard extends Component {
     filterTask(value);
   };
   openForm = () => {
-    this.setState({
-      open: true,
-    });
+    const {modalActions}= this.props;
+    const {showModal, changeModalTitle, changeModalContent} = modalActions;
+    showModal();
+    changeModalTitle("Them moi");
   };
   renderFrom() {
     const { open } = this.state;
@@ -92,6 +94,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     taskActionCreator: bindActionCreators(taskActions, dispatch),
+    modalActions: bindActionCreators(modalActions,dispatch),
   };
 };
 export default withStyles(styles)(

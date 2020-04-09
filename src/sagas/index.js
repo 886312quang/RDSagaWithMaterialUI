@@ -6,7 +6,6 @@ import {
   select,
   take,
   takeLatest,
-  takeEvery,
 } from "redux-saga/effects";
 import {
   fetchListTaskFailed,
@@ -43,6 +42,6 @@ function* filterTaskSaga({ payload }) {
 }
 function* rootSaga() {
   yield fork(watchListTaskAction);
-  yield takeEvery(taskTypes.FILTER_TASK, filterTaskSaga);
+  yield takeLatest(taskTypes.FILTER_TASK, filterTaskSaga);
 }
 export default rootSaga;
