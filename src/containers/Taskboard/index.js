@@ -9,7 +9,7 @@ import SearchBox from "../../components/SearchBox";
 import { STATUSES } from "../../constants/index";
 import * as modalActions from "./../../actions/modal";
 import * as taskActions from "./../../actions/task";
-import TaskForm from "./../../components/taskForm/index";
+import TaskForm from "../taskForm/index";
 import TaskList from "./../../components/taskList/index";
 import styles from "./styles";
 class TaskBoard extends Component {
@@ -50,10 +50,11 @@ class TaskBoard extends Component {
     filterTask(value);
   };
   openForm = () => {
-    const {modalActions}= this.props;
-    const {showModal, changeModalTitle, changeModalContent} = modalActions;
+    const {modalActionCreator}= this.props;
+    const { showModal, changeModalTitle, changeModalContent} = modalActionCreator;
     showModal();
     changeModalTitle("Them moi");
+    changeModalContent(<TaskForm/>);
   };
   renderFrom() {
     const { open } = this.state;
@@ -81,7 +82,6 @@ class TaskBoard extends Component {
           Add new task
         </Button>
         {this.renderBoard()}
-        {this.renderFrom()}
       </div>
     );
   }
@@ -94,7 +94,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     taskActionCreator: bindActionCreators(taskActions, dispatch),
-    modalActions: bindActionCreators(modalActions,dispatch),
+    modalActionCreator: bindActionCreators(modalActions,dispatch),
   };
 };
 export default withStyles(styles)(

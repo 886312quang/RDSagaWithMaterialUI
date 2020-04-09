@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 import configStore from "../../redux/configStore";
 import Taskboard from "./../Taskboard/index";
+import Modal from "./../../components/Modal/index";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import GlobalLoading from "../../components/GlobalLoading/index";
@@ -12,8 +13,9 @@ function App() {
   return (
     <Provider store={store}>
       <ToastContainer />
-      <GlobalLoading/>
+      <GlobalLoading />
       <Taskboard />
+      <Modal/>
     </Provider>
   );
 }
