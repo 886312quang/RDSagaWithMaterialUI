@@ -8,12 +8,13 @@ import { bindActionCreators, compose } from "redux";
 import * as modalActions from "./../../actions/modal";
 import { reduxForm, Field } from "redux-form";
 import renderTextField from "../../components/FormHeplper";
+import validate from "./validate";
 class TaskForm extends Component {
   handleSubmitForm = (data) => {
     console.log("data:", data);
   };
   render() {
-    const { classes, modalActionsCreator, handleSubmit } = this.props;
+    const { classes, modalActionsCreator, handleSubmit,invalid, submitting } = this.props;
     const { hideModal } = modalActionsCreator;
     return (
       <form onSubmit={handleSubmit(this.handleSubmitForm)}>
@@ -24,7 +25,7 @@ class TaskForm extends Component {
               label="Title"
               className={classes.TextField}
               margin="normal"
-              name="Title"
+              name="title"
               component={renderTextField}
             />
           </Grid>
@@ -41,7 +42,7 @@ class TaskForm extends Component {
           </Grid>
           <Grid item md={12}>
             <Box display="flex" flexDirection="row-reverse" mt={2}>
-              <Button ml={1} type="submit">
+              <Button disabled={invalid || submitting} ml={1} type="submit">
                 Save
               </Button>
               <Button ml={1} onClick={hideModal}>
@@ -66,6 +67,7 @@ const withConnect = connect(mapDispatchToProps, mapStateToProps);
 const FORM_NAME = "TASK_MANAGEMENT";
 const withReduxForm = reduxForm({
   form: FORM_NAME,
+  validate: validate,
 });
 export default compose(
   withStyles(styles),
