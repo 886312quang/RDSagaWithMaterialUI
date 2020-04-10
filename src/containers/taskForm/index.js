@@ -1,33 +1,42 @@
 import { Box, Grid, withStyles } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
+import Checkbox from '@material-ui/core/Checkbox'
 import React, { Component } from "react";
 import styles from "./styles";
 import { connect } from "react-redux";
 import { bindActionCreators, compose } from "redux";
 import * as modalActions from "./../../actions/modal";
 import { reduxForm, Field } from "redux-form";
+import renderTextField from "../../components/FormHeplper";
 class TaskForm extends Component {
-  handleSubmitForm = data =>{
-    console.log("data:", data)
-  }
+  handleSubmitForm = (data) => {
+    console.log("data:", data);
+  };
   render() {
-    const { classes, modalActionsCreator,handleSubmit } = this.props;
+    const { classes, modalActionsCreator, handleSubmit } = this.props;
     const { hideModal } = modalActionsCreator;
     return (
       <form onSubmit={handleSubmit(this.handleSubmitForm)}>
         <Grid container>
           <Grid item md={12}>
-            <Field name="firstName" component="input" tpye="text" />
-          </Grid>
-          <Grid item md={12}>
-            <TextField id="jobs" label="Jobs" className={classes.TextField} />
-          </Grid>
-          <Grid item md={12}>
-            <TextField
-              id="Describe"
-              label="Describe"
+            <Field
+              id="title"
+              label="Title"
               className={classes.TextField}
+              margin="normal"
+              name="Title"
+              component={renderTextField}
+            />
+          </Grid>
+          <Grid item md={12}>
+            <Field
+              id="description"
+              label="Description"
+              multiline
+              className={classes.TextField}
+              name="Description"
+              margin="normal"
+              component={renderTextField}
             />
           </Grid>
           <Grid item md={12}>
