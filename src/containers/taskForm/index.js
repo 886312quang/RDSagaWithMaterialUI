@@ -4,15 +4,22 @@ import TextField from "@material-ui/core/TextField";
 import React, { Component } from "react";
 import styles from "./styles";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { bindActionCreators, compose } from "redux";
 import * as modalActions from "./../../actions/modal";
+import { reduxForm, Field } from "redux-form";
 class TaskForm extends Component {
+  handleSubmitForm = data =>{
+    console.log("data:", data)
+  }
   render() {
-    const { classes, modalActionsCreator } = this.props;
+    const { classes, modalActionsCreator,handleSubmit } = this.props;
     const { hideModal } = modalActionsCreator;
     return (
-      <form>
+      <form onSubmit={handleSubmit(this.handleSubmitForm)}>
         <Grid container>
+          <Grid item md={12}>
+            <Field name="firstName" component="input" tpye="text" />
+          </Grid>
           <Grid item md={12}>
             <TextField id="jobs" label="Jobs" className={classes.TextField} />
           </Grid>
@@ -46,6 +53,13 @@ const mapDispatchToProps = (dispatch) => {
     modalActionsCreator: bindActionCreators(modalActions, dispatch),
   };
 };
-export default withStyles(styles)(
-  connect(mapStateToProps, mapDispatchToProps)(TaskForm),
-);
+const withConnect = connect(mapDispatchToProps, mapStateToProps);
+const FORM_NAME = "TASK_MANAGEMENT";
+const withReduxForm = reduxForm({
+  form: FORM_NAME,
+});
+export default compose(
+  withStyles(styles),
+  withConnect,
+  withReduxForm,
+)(TaskForm);

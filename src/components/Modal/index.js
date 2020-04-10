@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as modalActions from "./../../actions/modal";
-
 import styles from "./styles";
 class commonModal extends Component {
   render() {
