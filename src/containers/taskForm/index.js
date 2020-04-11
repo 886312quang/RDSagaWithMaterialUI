@@ -1,21 +1,31 @@
-import { Box, Grid, withStyles } from "@material-ui/core";
+import { Box, Grid, withStyles, Radio } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import Checkbox from '@material-ui/core/Checkbox'
 import React, { Component } from "react";
-import styles from "./styles";
 import { connect } from "react-redux";
 import { bindActionCreators, compose } from "redux";
-import * as modalActions from "./../../actions/modal";
-import { reduxForm, Field } from "redux-form";
+import { Field, reduxForm } from "redux-form";
 import renderTextField from "../../components/FormHeplper";
+import * as modalActions from "./../../actions/modal";
+import * as taskActions from "./../../actions/task";
+import styles from "./styles";
 import validate from "./validate";
+import radioButton from "../../components/FormHeplper/radioBt";
 class TaskForm extends Component {
   handleSubmitForm = (data) => {
-    console.log("data:", data);
+    const { taskActionCreators } = this.props;
+    const { addTask } = taskActionCreators;
+    const { title, description,actiontask } = data;
+    addTask(title, description,actiontask);
   };
   render() {
-    const { classes, modalActionsCreator, handleSubmit,invalid, submitting } = this.props;
-    const { hideModal } = modalActionsCreator;
+    const {
+      classes,
+      modalActionCreators,
+      handleSubmit,
+      invalid,
+      submitting,
+    } = this.props;
+    const { hideModal } = modalActionCreators;
     return (
       <form onSubmit={handleSubmit(this.handleSubmitForm)}>
         <Grid container>
@@ -35,10 +45,17 @@ class TaskForm extends Component {
               label="Description"
               multiline
               className={classes.TextField}
-              name="Description"
+              name="description"
               margin="normal"
               component={renderTextField}
             />
+          </Grid>
+          <Grid>
+            <Field name="actiontask" component={radioButton}>
+              <Radio value="1" label="Ready" />
+              <Radio value="2" label="In Process" />
+              <Radio value="3" label="Completed"/>
+            </Field>
           </Grid>
           <Grid item md={12}>
             <Box display="flex" flexDirection="row-reverse" mt={2}>
@@ -60,10 +77,11 @@ const mapStateToProps = null;
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    modalActionsCreator: bindActionCreators(modalActions, dispatch),
+    modalActionCreators: bindActionCreators(modalActions, dispatch),
+    taskActionCreators: bindActionCreators(taskActions, dispatch),
   };
 };
-const withConnect = connect(mapDispatchToProps, mapStateToProps);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 const FORM_NAME = "TASK_MANAGEMENT";
 const withReduxForm = reduxForm({
   form: FORM_NAME,

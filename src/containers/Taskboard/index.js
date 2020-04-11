@@ -26,12 +26,12 @@ class TaskBoard extends Component {
     let xhtml = null;
     xhtml = (
       <Grid container spacing={2}>
-        {STATUSES.map((status) => {
+        {STATUSES.map((actiontask) => {
           const taskFilter = ListTask.filter(
-            (task) => task.status === status.value,
+            (task) => task.actiontask === actiontask.value,
           );
           return (
-            <TaskList task={taskFilter} status={status} key={status.value} />
+            <TaskList task={taskFilter} status={actiontask} key={actiontask.value} />
           );
         })}
       </Grid>
