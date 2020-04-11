@@ -15,7 +15,9 @@ const styles = theme => ({
     header:{
         textAlign:"center",
         fontSize: 24,
-        fontWeight: 800
+        fontWeight: 800,
+        backgroundColor: "#74b9ff",
+        color: "white",
     }
 })
 

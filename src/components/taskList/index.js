@@ -6,7 +6,7 @@ import { withStyles } from "@material-ui/styles";
 import TaskItem from "./../taskItems/index";
 class TaskList extends Component {
   render() {
-    const { classes, task, status, onClickEdit } = this.props;
+    const { classes, task, status, onClickEdit,onClickDelete } = this.props;
     return (
       <Grid item md={4} xs={12} key={status.value}>
         <Box m={3}>
@@ -20,6 +20,7 @@ class TaskList extends Component {
                 status={status}
                 key={task._id}
                 onClickEdit={()=>onClickEdit(task)}
+                onClickDelete={()=>onClickDelete(task)}
               />
             );
           })}

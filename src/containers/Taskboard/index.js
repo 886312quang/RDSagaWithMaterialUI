@@ -1,5 +1,7 @@
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+import CloseIcon from "@material-ui/icons/Close";
+import DoneAllIcon from "@material-ui/icons/DoneAll";
 import Add from "@material-ui/icons/LibraryAdd";
 import { withStyles } from "@material-ui/styles";
 import React, { Component } from "react";
@@ -7,9 +9,9 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import SearchBox from "../../components/SearchBox";
 import { STATUSES } from "../../constants/index";
+import TaskForm from "../taskForm/index";
 import * as modalActions from "./../../actions/modal";
 import * as taskActions from "./../../actions/task";
-import TaskForm from "../taskForm/index";
 import TaskList from "./../../components/taskList/index";
 import styles from "./styles";
 class TaskBoard extends Component {
@@ -36,6 +38,7 @@ class TaskBoard extends Component {
               status={actiontask}
               key={actiontask.value}
               onClickEdit={this.handleEditTask}
+              onClickDelete={this.showModalDeleteTask}
             />
           );
         })}
@@ -55,9 +58,51 @@ class TaskBoard extends Component {
     const { filterTask } = taskActionCreator;
     filterTask(value);
   };
-  handleEditTask= task =>{
-    const {taskActionCreator, modalActionCreator} = this.props;
-    const {setTaskEditting} = taskActionCreator;
+  handleDeleteTask(id){
+    const {taskActionCreator} =this.props;
+    const {deleteTask} = taskActionCreator;
+    deleteTask(id);
+  }
+  showModalDeleteTask = (task) => {
+    const { modalActionCreator, classes } = this.props;
+    
+    const {
+      showModal,
+      hideModal,
+      changeModalContent,
+    } = modalActionCreator;
+    showModal();
+    changeModalContent(
+      <Grid container direction="row" justify="space-around" alignItems="center" mt={4} className={classes.mdDelete}>
+        <Grid sm="auto" item>
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.button}
+            startIcon={<DoneAllIcon />}
+            onClick={()=>this.handleDeleteTask(task._id)}
+          >
+            DELETE
+          </Button>
+        </Grid>
+        <Grid sm="auto" item>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            startIcon={<CloseIcon />}
+            onClick={hideModal}
+          >
+            CANCLE
+          </Button>
+        </Grid>
+      </Grid>,
+    );
+  };
+
+  handleEditTask = (task) => {
+    const { taskActionCreator, modalActionCreator } = this.props;
+    const { setTaskEditting } = taskActionCreator;
     setTaskEditting(task);
     const {
       showModal,
@@ -67,10 +112,10 @@ class TaskBoard extends Component {
     showModal();
     changeModalTitle("Edtting");
     changeModalContent(<TaskForm />);
-  }
+  };
   openForm = () => {
-    const { modalActionCreator,taskActionCreator } = this.props;
-    const {setTaskEditting} =taskActionCreator;
+    const { modalActionCreator, taskActionCreator } = this.props;
+    const { setTaskEditting } = taskActionCreator;
     setTaskEditting(null);
     const {
       showModal,

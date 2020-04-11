@@ -15,10 +15,11 @@ class commonModal extends Component {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
+      
         <div className={classes.modal}>
           <div className={classes.header}>
-            <span className={classes.titlel}>{title}</span>
-          </div>
+              <span className={classes.titlel}>{title}</span>
+            </div>
           <div className={classes.content}>{component}</div>
         </div>
       </Modal>

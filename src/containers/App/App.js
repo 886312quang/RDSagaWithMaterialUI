@@ -7,15 +7,18 @@ import Modal from "./../../components/Modal/index";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import GlobalLoading from "../../components/GlobalLoading/index";
+import { BrowserRouter } from "react-router-dom";
 const store = configStore();
 
 function App() {
   return (
     <Provider store={store}>
-      <ToastContainer />
-      <GlobalLoading />
-      <Taskboard />
-      <Modal/>
+      <BrowserRouter>
+        <ToastContainer />
+        <GlobalLoading />
+        <Taskboard />
+        <Modal />
+      </BrowserRouter>
     </Provider>
   );
 }

@@ -92,3 +92,25 @@ export const updateTaskFailed = (err) => ({
     err,
   },
 });
+export const deleteTask = (id) => {
+  return {
+    type: taskConstant.DELETE_TASK,
+    payload: {
+     id
+    },
+  };
+};
+export const deleteTaskSuccess = (data) => {
+  return {
+    type: taskConstant.DELETE_TASK_SUCCESS,
+    payload: {
+     data,
+    },
+  };
+};
+export const deleteTaskFailed = (err) => ({
+  type: taskConstant.DELETE_TASK_FAILED,
+  payload: {
+    err,
+  },
+});

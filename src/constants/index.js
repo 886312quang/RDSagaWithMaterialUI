@@ -1,3 +1,5 @@
+import AdminHomePage from "./../containers/AdminHomePage/index";
+import TaskBoardPage from "./../containers/Taskboard/index";
 export const API_ENDPOINT = "http://localhost:9999/api";
 
 export const STATUSES = [
@@ -19,3 +21,18 @@ export const STATUS_CODE = {
   CREATED: 201,
   UPDATED: 202,
 };
+
+export const ROUTES = [
+  {
+    path: "/",
+    name: "AdminPage",
+    exact: true,
+    component: AdminHomePage,
+  },
+  {
+    path: "/",
+    name: "TaskBoardPage",
+    exact: true,
+    component: TaskBoardPage,
+  },
+];
