@@ -1,15 +1,16 @@
-import { call, delay, fork, put, select, take, takeEvery, takeLatest } from "redux-saga/effects";
+import { call, delay, fork, put, take, takeEvery, takeLatest } from "redux-saga/effects";
 import { hideModal } from "../actions/modal";
-import { addTaskFailed, addTaskSuccess, fetchListTaskFailed, fetchListTaskSuccess, filterTaskSuccess } from "../actions/task";
+import { addTaskFailed, addTaskSuccess, fetchListTask, fetchListTaskFailed, fetchListTaskSuccess } from "../actions/task";
 import { hideLoading, showLoading } from "./../actions/ui";
 import { addTaskApi, getList } from "./../apis/task";
-import { STATUS_CODE} from "./../constants/index";
+import { STATUS_CODE } from "./../constants/index";
 import * as taskTypes from "./../constants/task";
 function* watchListTaskAction() {
   while (true) {
-    yield take(taskTypes.FETCH_TASK);
+    const action = yield take(taskTypes.FETCH_TASK);
     yield put(showLoading());
-    const res = yield call(getList,{});
+    const { params } = action.payload;
+    const res = yield call(getList, params);
     const { status, data } = res;
     if (status === STATUS_CODE.SUCCESS) {
       yield put(fetchListTaskSuccess(data));
@@ -23,14 +24,14 @@ function* watchListTaskAction() {
 function* filterTaskSaga({ payload }) {
   yield delay(500);
   const { keyword } = payload;
-  const list = yield select((state) => state.task.listTask);
-  const filteredTask = list.filter((task) =>
-    task.title.trim().toLowerCase().includes(keyword.trim().toLowerCase()),
+  yield put(
+    fetchListTask({
+      q: keyword,
+    }),
   );
-  yield put(filterTaskSuccess(filteredTask));
 }
 function* addTaskSaga({ payload }) {
-  const { title, description,actiontask } = payload;
+  const { title, description, actiontask } = payload;
   yield put(showLoading());
   const resp = yield call(addTaskApi, {
     title,
@@ -39,7 +40,7 @@ function* addTaskSaga({ payload }) {
   });
   const { data, status } = resp;
   if (status === STATUS_CODE.SUCCESS) {
-    yield put(addTaskSuccess({data}));
+    yield put(addTaskSuccess({ data }));
     yield put(hideModal());
   } else {
     yield put(addTaskFailed(data));
