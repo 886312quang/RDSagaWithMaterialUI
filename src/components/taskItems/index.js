@@ -12,7 +12,7 @@ import Icon from '@material-ui/core/Icon';
 
 class TaskItem extends Component {
     render() {
-        const { classes, task, status } = this.props;
+        const { classes, task, status,onClickEdit } = this.props;
         const { _id, title, description } = task;
         return (
             <Box m={2}>
@@ -31,7 +31,7 @@ class TaskItem extends Component {
                         <p>{description}</p>
                     </CardContent>
                     <CardActions className={classes.CardActions}>
-                        <Fab color="primary" aria-label="edit" className={classes.fab} size="small">
+                        <Fab color="primary" aria-label="edit" className={classes.fab} size="small" onClick={onClickEdit}>
                             <Icon fontSize="small">
                                 edit_icon
                             </Icon>

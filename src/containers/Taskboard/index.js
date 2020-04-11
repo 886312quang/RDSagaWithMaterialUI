@@ -31,7 +31,12 @@ class TaskBoard extends Component {
             (task) => task.actiontask === actiontask.value,
           );
           return (
-            <TaskList task={taskFilter} status={actiontask} key={actiontask.value} />
+            <TaskList
+              task={taskFilter}
+              status={actiontask}
+              key={actiontask.value}
+              onClickEdit={this.handleEditTask}
+            />
           );
         })}
       </Grid>
@@ -43,18 +48,38 @@ class TaskBoard extends Component {
       open: false,
     });
   };
+
   handleFilter = (e) => {
     const { value } = e.target;
     const { taskActionCreator } = this.props;
     const { filterTask } = taskActionCreator;
     filterTask(value);
   };
+  handleEditTask= task =>{
+    const {taskActionCreator, modalActionCreator} = this.props;
+    const {setTaskEditting} = taskActionCreator;
+    setTaskEditting(task);
+    const {
+      showModal,
+      changeModalTitle,
+      changeModalContent,
+    } = modalActionCreator;
+    showModal();
+    changeModalTitle("Edtting");
+    changeModalContent(<TaskForm />);
+  }
   openForm = () => {
-    const {modalActionCreator}= this.props;
-    const { showModal, changeModalTitle, changeModalContent} = modalActionCreator;
+    const { modalActionCreator,taskActionCreator } = this.props;
+    const {setTaskEditting} =taskActionCreator;
+    setTaskEditting(null);
+    const {
+      showModal,
+      changeModalTitle,
+      changeModalContent,
+    } = modalActionCreator;
     showModal();
     changeModalTitle("Them moi");
-    changeModalContent(<TaskForm/>);
+    changeModalContent(<TaskForm />);
   };
   renderFrom() {
     const { open } = this.state;
@@ -94,7 +119,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     taskActionCreator: bindActionCreators(taskActions, dispatch),
-    modalActionCreator: bindActionCreators(modalActions,dispatch),
+    modalActionCreator: bindActionCreators(modalActions, dispatch),
   };
 };
 export default withStyles(styles)(

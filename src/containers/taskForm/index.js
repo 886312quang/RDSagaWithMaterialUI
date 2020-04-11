@@ -1,21 +1,25 @@
-import { Box, Grid, withStyles, Radio } from "@material-ui/core";
+import { Box, Grid, withStyles } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators, compose } from "redux";
 import { Field, reduxForm } from "redux-form";
 import renderTextField from "../../components/FormHeplper";
+import radioButton from "../../components/FormHeplper/radioBt";
 import * as modalActions from "./../../actions/modal";
 import * as taskActions from "./../../actions/task";
 import styles from "./styles";
 import validate from "./validate";
-import radioButton from "../../components/FormHeplper/radioBt";
 class TaskForm extends Component {
   handleSubmitForm = (data) => {
-    const { taskActionCreators } = this.props;
-    const { addTask } = taskActionCreators;
-    const { title, description,actiontask } = data;
-    addTask(title, description,actiontask);
+    const { taskActionCreators, taskEditting } = this.props;
+    const { addTask, updateTask } = taskActionCreators;
+    const { title, description, actiontask } = data;
+    if (taskEditting && taskEditting._id) {
+      updateTask(title, description, actiontask);
+    } else {
+      addTask(title, description, actiontask);
+    }
   };
   render() {
     const {
@@ -51,11 +55,7 @@ class TaskForm extends Component {
             />
           </Grid>
           <Grid>
-            <Field name="actiontask" component={radioButton}>
-              <Radio value="1" label="Ready" />
-              <Radio value="2" label="In Process" />
-              <Radio value="3" label="Completed"/>
-            </Field>
+            <Field name="actiontask" component={radioButton}></Field>
           </Grid>
           <Grid item md={12}>
             <Box display="flex" flexDirection="row-reverse" mt={2}>
@@ -73,7 +73,20 @@ class TaskForm extends Component {
   }
 }
 
-const mapStateToProps = null;
+const mapStateToProps = (state) => {
+  return {
+    taskEditting: state.task.taskEditting,
+    initialValues: {
+      title: state.task.taskEditting ? state.task.taskEditting.title : null,
+      description: state.task.taskEditting
+        ? state.task.taskEditting.description
+        : null,
+      actiontask: state.task.taskEditting
+        ? state.task.taskEditting.actiontask
+        : null,
+    },
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {

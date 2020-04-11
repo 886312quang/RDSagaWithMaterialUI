@@ -60,3 +60,35 @@ export const addTaskFailed = (err) => ({
     err,
   },
 });
+
+export const setTaskEditting = (task) => ({
+  type: taskConstant.SET_TASK_EDITTING,
+  payload: {
+    task,
+  },
+});
+
+export const updateTask = (title, description,actiontask) => {
+  return {
+    type: taskConstant.UPDATE_TASK,
+    payload: {
+      title,
+      description,
+      actiontask
+    },
+  };
+};
+export const updateTaskSuccess = (data) => {
+  return {
+    type: taskConstant.UPDATE_TASK_SUCCESS,
+    payload: {
+     data,
+    },
+  };
+};
+export const updateTaskFailed = (err) => ({
+  type: taskConstant.UPDATE_TASK_FAILED,
+  payload: {
+    err,
+  },
+});

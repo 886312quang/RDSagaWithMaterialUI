@@ -4,10 +4,10 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import React from "react";
 
-const radioButton = ({ input, ...rest }) => (
+const radioButton = ({ input,  meta: { touched, invalid, error }, ...rest}) => (
   <FormControl>
-    <RadioGroup {...input} {...rest}>
-      <FormControlLabel value="1" control={<Radio />} label="Ready" />
+    <RadioGroup {...input} {...rest}  error={touched && invalid}>
+      <FormControlLabel value="1" control={<Radio />} label="Ready"/>
       <FormControlLabel value="2" control={<Radio />} label="In Process" />
       <FormControlLabel value="3" control={<Radio />} label="Completed" />
     </RadioGroup>
