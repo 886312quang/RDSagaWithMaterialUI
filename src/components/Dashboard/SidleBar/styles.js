@@ -35,6 +35,15 @@ const styles = (theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  menuLink:{
+    textDecoration:"none",
+    color: "black"
+  },
+  menuLinkActive:{
+    '&>div': {
+      backgroundColor: 'rgba(0, 0, 0, 0.04)',
+    }
+  }
   });
   
   export default styles;

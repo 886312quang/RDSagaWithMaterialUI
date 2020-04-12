@@ -15,7 +15,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { withStyles } from "@material-ui/styles";
 import React, { Component } from "react";
 import styles from "./styles";
-
+import cn from 'classnames';
 const menuId = "primary-search-account-menu";
 const mobileMenuId = "primary-search-account-menu-mobile";
 class Header extends Component {

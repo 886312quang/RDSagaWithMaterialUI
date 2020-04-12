@@ -6,6 +6,7 @@ import SildeBar from "./../Dashboard/SidleBar/index";
 import { connect } from "react-redux";
 import { compose, bindActionCreators } from "redux";
 import * as uiActions from "../../actions/ui";
+import cn from "classnames";
 class Dashboard extends Component {
   handleToggleSideBar = (value) => {
     const { uiActionCreator } = this.props;
@@ -30,7 +31,9 @@ class Dashboard extends Component {
             showSideBar={showSideBar}
             onToggleSidebar={this.handleToggleSideBar}
           />
-          <div className={classes.wrapperContent}>{children}</div>
+          <div className={cn(classes.wrapperContent,{
+            [classes.shiftLeft]: showSideBar ===false,
+          })}>{children}</div>
         </div>
       </div>
     );
