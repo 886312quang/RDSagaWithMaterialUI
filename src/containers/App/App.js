@@ -6,11 +6,12 @@ import GlobalLoading from "../../components/GlobalLoading/index";
 import configStore from "../../redux/configStore";
 import Modal from "./../../components/Modal/index";
 import { BrowserRouter, Switch } from "react-router-dom";
-import { ADMIN_ROUTES } from "../../constants";
+import { ADMIN_ROUTES, ROUTES } from "../../constants";
 import AdminLayoutRoute from "./../../commons/Layout/AdminLayoutRoute/index";
+import DefaultLayoutRoute from "./../../commons/Layout/DefaultLayoutRoute/index";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@material-ui/core/styles";
-import theme from '../../commons/theme/theme';
+import theme from "../../commons/theme/theme";
 const store = configStore();
 
 class App extends Component {
@@ -29,17 +30,35 @@ class App extends Component {
     });
     return xhtml;
   }
+  renderDefaultRoute() {
+    let xhtml = null;
+    xhtml = ROUTES.map((route) => {
+      return (
+        <DefaultLayoutRoute
+          key={route.path}
+          path={route.path}
+          component={route.component}
+          exact={route.exact}
+          name={route.name}
+        />
+      );
+    });
+    return xhtml;
+  }
 
   render() {
     return (
       <Provider store={store}>
         <BrowserRouter>
           <ThemeProvider theme={theme}>
-            <CssBaseline/>
+            <CssBaseline />
             <ToastContainer />
             <GlobalLoading />
             <Modal />
-            <Switch>{this.renderAdminRoute()}</Switch>
+            <Switch>
+              {this.renderDefaultRoute()}
+              {this.renderAdminRoute()}
+            </Switch>
           </ThemeProvider>
         </BrowserRouter>
       </Provider>

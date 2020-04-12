@@ -1,21 +1,16 @@
 import AppBar from "@material-ui/core/AppBar";
-import Badge from "@material-ui/core/Badge";
 import IconButton from "@material-ui/core/IconButton";
-import InputBase from "@material-ui/core/InputBase";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import MailIcon from "@material-ui/icons/Mail";
 import MenuIcon from "@material-ui/icons/Menu";
 import MoreIcon from "@material-ui/icons/MoreVert";
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
-import SearchIcon from "@material-ui/icons/Search";
 import { withStyles } from "@material-ui/styles";
 import React, { Component } from "react";
 import styles from "./styles";
-import cn from 'classnames';
+import {withRouter} from 'react-router';
 const menuId = "primary-search-account-menu";
 const mobileMenuId = "primary-search-account-menu-mobile";
 class Header extends Component {
@@ -48,6 +43,12 @@ class Header extends Component {
       anchorEl: null,
     });
   };
+  handleLogout = () => {
+    const { history} = this.props;
+    if(history){
+      history.push('/login');
+    }
+  }
   renderMenu = () => {
     const { anchorEl } = this.state;
     const isMenuOpen = Boolean(anchorEl);
@@ -63,6 +64,7 @@ class Header extends Component {
       >
         <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
         <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
+        <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
       </Menu>
     );
   };
@@ -151,4 +153,4 @@ hanldeToggleSideBar= () =>{
     );
   }
 }
-export default withStyles(styles)(Header);
+export default withStyles(styles)(withRouter(Header));
