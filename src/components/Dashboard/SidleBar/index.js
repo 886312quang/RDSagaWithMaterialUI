@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import {withStyles} from '@material-ui/styles';
-import styles from './styles'
+import styles from './SidleBar/styles'
 
-class DashBoard extends Component {
+class SidleBar extends Component {
     render() {
         return (
             <div>
-                DashBoard
+                SidleBar
             </div>
         )
     }
 }
-export default withStyles(styles)(DashBoard)
+export default withStyles(styles)(SidleBar)

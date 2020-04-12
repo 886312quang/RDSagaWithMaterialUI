@@ -22,7 +22,7 @@ export const STATUS_CODE = {
   UPDATED: 202,
 };
 
-export const ROUTES = [
+export const ADMIN_ROUTES = [
   {
     path: "/",
     name: "AdminPage",
