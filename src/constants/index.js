@@ -30,8 +30,8 @@ export const ADMIN_ROUTES = [
     component: AdminHomePage,
   },
   {
-    path: "/",
-    name: "TaskBoardPage",
+    path: "/task-board",
+    name: "TaskBoard",
     exact: true,
     component: TaskBoardPage,
   },

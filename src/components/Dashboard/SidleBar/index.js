@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {withStyles} from '@material-ui/styles';
-import styles from './SidleBar/styles'
+import styles from './styles'
 
 class SidleBar extends Component {
     render() {
