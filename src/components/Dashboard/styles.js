@@ -1,11 +1,15 @@
 const styles = () => ({
-    text:{
-      color: "black",
-      top: "50%",
-      left: "50%",
-      position: "relative",
-      fontSize: "100",
-    }
+  Dashboard:{
+    minHeight: '100vh',
+  }, 
+  wrapper: {
+      display: 'flex',
+      flexDirection: 'row',
+    },
+    wrapperContent:{
+      width: '100%',
+      padding:10,
+    },
   });
   
   export default styles;

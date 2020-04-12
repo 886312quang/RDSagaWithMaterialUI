@@ -9,11 +9,11 @@ import MailIcon from "@material-ui/icons/Mail";
 import MenuIcon from "@material-ui/icons/Menu";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu'
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import { withStyles } from "@material-ui/styles";
-import React,{Component} from 'react';
+import React, { Component } from "react";
 import styles from "./styles";
 
 const menuId = "primary-search-account-menu";
@@ -26,32 +26,31 @@ class Header extends Component {
       isMobileMenuOpen: false,
       anchorEl: null,
       isMenuOpen: false,
-      
     };
   }
   handleMobileMenuOpen = (e) => {
     this.setState({
       mobileMoreAnchorEl: e.currentTarget,
-    })
+    });
   };
   handleProfileMenuOpen = (e) => {
-    this.setState({  
+    this.setState({
       anchorEl: e.currentTarget,
-    })
+    });
   };
   handleMobileMenuClose = () => {
     this.setState({
-      mobileMoreAnchorEl:null,
-    })
+      mobileMoreAnchorEl: null,
+    });
   };
-  handleMenuClose=()=>{
-     this.setState({
-       anchorEl:null,
-     })
-  }
+  handleMenuClose = () => {
+    this.setState({
+      anchorEl: null,
+    });
+  };
   renderMenu = () => {
-      const {anchorEl} =this.state;
-      const isMenuOpen = Boolean(anchorEl);
+    const { anchorEl } = this.state;
+    const isMenuOpen = Boolean(anchorEl);
     return (
       <Menu
         anchorEl={anchorEl}
@@ -68,8 +67,8 @@ class Header extends Component {
     );
   };
   renderMobileMenu = () => {
-    const { mobileMoreAnchorEl} = this.state;
-    const isMobileMenuOpen =Boolean(mobileMoreAnchorEl);
+    const { mobileMoreAnchorEl } = this.state;
+    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
     return (
       <Menu
         anchorEl={mobileMoreAnchorEl}
@@ -95,8 +94,14 @@ class Header extends Component {
     );
   };
 
+hanldeToggleSideBar= () =>{
+  const {showSideBar,onToggleSidebar} = this.props;
+  if(onToggleSidebar){
+    onToggleSidebar(!showSideBar);
+  }
+}
   render() {
-    const { classes,name } = this.props;
+    const { classes, name } = this.props;
     return (
       <div className={classes.grow}>
         <AppBar position="static">
@@ -106,16 +111,16 @@ class Header extends Component {
               className={classes.menuButton}
               color="inherit"
               aria-label="open drawer"
+              onClick={this.hanldeToggleSideBar}
             >
               <MenuIcon />
             </IconButton>
             <Typography className={classes.title} variant="h6" noWrap>
               {name}
             </Typography>
-         
+
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-             
               <IconButton
                 edge="end"
                 aria-label="account of current user"
